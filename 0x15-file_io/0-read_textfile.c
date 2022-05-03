@@ -1,57 +1,81 @@
+#include "holberton.h"
 #include "main.h"
 
 /**
- * read_textfile - reads a text file and prints the letters
- * @filename: filename.
- * @letters: numbers of letters printed.
- *
- * Return: numbers of letters printed. It fails, returns 0.
+* free_buff - free string
+* @buff: string to pass
+*
+* Return: 0
+*/
+
+int free_buff(char *buff)
+{
+	free(buff);
+	return (0);
+}
+
+/**
+* read_textfile - print letters from a text file to standard output
+* @filename: file to open
+* @letters: number of letters to print
+*
+* Return: amount of letters read and written, 0 on fail
+*/
+
+ * read_textfile - reads a text file and prints it to the POSIX standard output
+ * @filename: pointer to text in a file
+ * @letters: number of letters
+ * Return: the actual number of letters it could read and print
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
+	ssize_t rcount, wcount;
+	char *buffer;
 	int fd;
-	ssize_t nrd, nwr;
-	char *buf;
 
-	if (!filename)
+	if (!filename || letters < 1)
 		return (0);
 
 	fd = open(filename, O_RDONLY);
-
 	if (fd == -1)
 		return (0);
 
-	buf = malloc(sizeof(char) * (letters));
-	if (!buf)
-		return (0);
+	buffer = malloc(sizeof(char) * letters);
+	if (!buffer)
+		free_buff(buffer);
 
-	nrd = read(fd, buf, letters);
-	nwr = write(STDOUT_FILENO, buf, nrd);
+	rcount = read(fd, buffer, letters);
+	if (!rcount)
+		free_buff(buffer);
+
+	wcount = write(STDOUT_FILENO, buffer, rcount);
+	if (!wcount)
+		free_buff(buffer);
 
 	close(fd);
 
-	free(buf);
+	free(buffer);
 
-	return (nwr);
+	return (wcount);
+    ssize_t file, fread, fwrite;
+    char *totalSize;
+
+    totalSize = malloc(sizeof(char) * letters);
+    if (totalSize == NULL)
+        return (0);
+    if (filename == NULL)
+        return (0);
+
+    file = open(filename, O_RDONLY);
+    if (file == -1)
+        return (0);
+    fread = read(file, totalSize, letters);
+    if (fread == -1)
+        return (0);
+    fwrite = write(STDOUT_FILENO, totalSize, fread);
+    if (fwrite == -1)
+        return (0);
+    close(file);
+    free(totalSize);
+    return (fwrite);
 }
- 1  
-0x15-file_io/README.md
-@@ -0,0 +1 @@
-C-File I/O
- 14  
-0x15-file_io/main.h
-@@ -0,0 +1,14 @@
-#ifndef __MAIN_H__
-#define __MAIN_H__
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-ssize_t read_textfile(const char *filename, size_t letters);
-int create_file(const char *filename, char *text_content);
-int append_text_to_file(const char *filename, char *text_content);
-
-#endif
