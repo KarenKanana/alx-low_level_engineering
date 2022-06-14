@@ -1,3 +1,3 @@
 #!/bin/bash
-wget -P /tmp https://github.com/holbertonschool/0x18.c/blob/master/101-md5_gm
-export LD_PRELOAD=/tmp/putshack.so
+wget -P /tmp/ https://raw.github.com/issar13/alx-low_level_programming/master/0x18-dynamic_libraries/nrandom.so
+export LD_PRELOAD=/tmp/nrandom.so[putshack.so[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[putshack.so[B[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D
